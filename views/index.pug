@@ -2,6 +2,10 @@ doctype html
 html(lang='en')
     head
         title Time Keeper
+        link(
+            rel="stylesheet"
+            href="main.css"
+        )
         script(
                 src="https://unpkg.com/htmx.org@2.0.2"
                 integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
@@ -10,11 +14,12 @@ html(lang='en')
     body
         h1 Time Keeper
         h2#time
-        button(
-                hx-post="/clock"
-                hx-swap="innerHTML"
-                hx-vals='js:{"date":new Date().toJSON()}'
-                ) Button
+        div
+            button(
+                    hx-post="/clock"
+                    hx-swap="innerHTML"
+                    hx-vals='js:{"date":new Date().toJSON()}'
+                    ) Clock In
 
         script.
             function getTime() {
@@ -28,7 +33,6 @@ html(lang='en')
                 }
                 hours %= 12;
 
-                hours = (hours < 10) ? "0" + hours: hours;
                 minutes = (minutes < 10) ? "0" + minutes: minutes;
                 seconds = (seconds < 10) ? "0" + seconds: seconds;
 

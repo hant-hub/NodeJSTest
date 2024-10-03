@@ -7,24 +7,23 @@ app.use(express.static('public'));
 
 app.set('view engine', 'pug');
 
-
 let state = true;
 let clockInTime;
 app.post('/clock', (req, res) => {
 
     const date = new Date(req.body.date);
-    console.log(date);
-    fs.writeFileSync("times.txt", state + date + "\n", {flag:"a+"});
+    const filepath = "data/" + date.getFullYear() + "." + date.getMonth() + ".txt";
 
     if (state) {
         res.send("Clock Out");
         clockInTime = date;
     } else {
         res.send("Clock In");
-        console.log((date - clockInTime));
+        const write = clockInTime.toJSON() + " to " + date.toJSON() + " for " + (date - clockInTime) + "\n";
+        fs.writeFileSync(filepath, write, {flag:"a+"});
+        console.log(write);
     }
     state = !state;
-
 });
 
 app.get('/', (req, res) => {

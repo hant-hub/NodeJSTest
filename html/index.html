@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>test</title>
-    <script>
-      let date = new Date();
-      document.getElementById("time").innerText = data.toDateString();
-    </script>
+    <title>Time Keeper</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>ClockIn App</h1>
-    <p id="time"></p>
+    <h1>Time Keeper</h1>
+    <h2 id="time"></h2>
+    <div>
+      <button hx-post="/clock" hx-swap="innerHTML" hx-vals="js:{&quot;date&quot;:new Date().toJSON()}">Clock In</button>
+    </div>
+    <script>
+      function getTime() {
+          let date = new Date();
+          let hours = date.getHours();
+          let minutes = date.getMinutes();
+          let seconds = date.getSeconds();
+          let suffix = 'AM';
+          if (hours > 12) {
+              suffix = 'PM';
+          }
+          hours %= 12;
+      
+          minutes = (minutes < 10) ? "0" + minutes: minutes;
+          seconds = (seconds < 10) ? "0" + seconds: seconds;
+      
+          return hours + ":" + minutes + ":" + seconds + " " + suffix;
+      }
+      document.getElementById("time").innerText = getTime();
+      setInterval(function() {
+          document.getElementById("time").innerText = getTime();
+       }, 1000);
+    </script>
   </body>
 </html>
