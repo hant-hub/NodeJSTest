@@ -11,14 +11,29 @@ html(lang='en')
                 integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
                 crossorigin="anonymous")
             
+        script(
+            src="/auth.js"
+        )
     body
+        div(
+            id = "nav"
+            )
+            button(
+                id="calendar-nav"
+                href="/calendar"
+                onclick="document.location.href='/calendar'"
+            ) Calendar
+
         h1 Time Keeper
         h2#time
-        div
+        div(
+            id="mainscreen"
+        )
             button(
                     hx-post="/clock"
                     hx-swap="innerHTML"
-                    hx-vals='js:{"date":new Date().toJSON()}'
+                    hx-vals='js:{"date":new Date().toJSON(), "identity":localStorage.getItem("identity")}'
+                    id="clockButton"
                     ) Clock In
 
         script.

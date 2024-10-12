@@ -1,0 +1,30 @@
+doctype html
+html(lang='en')
+head
+        title Timekeeper
+        link(
+            rel="stylesheet"
+            href="main.css"
+        )
+body
+    div(
+            id = "nav"
+       )
+    button(
+            id="calendar-nav"
+            href="/calendar"
+            onclick="document.location.href='/'"
+          ) Clock
+
+    h2 Calendar
+        
+        h3 Total Hours
+        p(
+            id="totalHours"
+        ) t 
+
+    script(
+            src="id.js"
+          )
+    script.
+        requestCalendar();
